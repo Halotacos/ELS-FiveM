@@ -161,6 +161,31 @@ AddEventHandler("els:setSirenState_c", function(sender, newstate)
     end
 end)
 
+RegisterNetEvent("els:setDualSiren_c")
+AddEventHandler("els:setDualSiren_c", function(sender, newstate)
+    local player_s = GetPlayerFromServerId(sender)
+    local ped_s = GetPlayerPed(player_s)
+    if DoesEntityExist(ped_s) and not IsEntityDead(ped_s) then
+        if IsPedInAnyVehicle(ped_s, false) then
+            local veh = GetVehiclePedIsUsing(ped_s)
+            dualEnable[veh] = newstate
+        end
+    end
+end)
+
+RegisterNetEvent("els:setDualSirenState_c")
+AddEventHandler("els:setDualSirenState_c", function(sender, newstate)
+    local player_s = GetPlayerFromServerId(sender)
+    local ped_s = GetPlayerPed(player_s)
+    if DoesEntityExist(ped_s) and not IsEntityDead(ped_s) then
+        if IsPedInAnyVehicle(ped_s, false) then
+            local veh = GetVehiclePedIsUsing(ped_s)
+            setDualSirenState(veh, newstate)
+        end
+    end
+end)
+
+
 RegisterNetEvent("els:setHornState_c")
 AddEventHandler("els:setHornState_c", function(sender, newstate)
     local player_s = GetPlayerFromServerId(sender)
