@@ -61,7 +61,10 @@ Citizen.CreateThread(function()
                     DisableControlAction(0, keyboard.siren.tone_one, true)
                     DisableControlAction(0, keyboard.siren.tone_two, true)
                     DisableControlAction(0, keyboard.siren.tone_three, true)
-
+                    DisableControlAction(0, keyboard.siren.dual_toggle, true)
+                    DisableControlAction(0, keyboard.siren.dual_one, true)
+                    DisableControlAction(0, keyboard.siren.dual_two, true)
+                    DisableControlAction(0, keyboard.siren.dual_three, true)
                     if IsDisabledControlPressed(0, keyboard.modifyKey) then
 
                         if IsDisabledControlJustReleased(0, keyboard.guiKey) then
@@ -153,7 +156,7 @@ Citizen.CreateThread(function()
                     end
 
 
-                    if GetVehicleClass(GetVehiclePedIsUsing(GetPlayerPed(-1))) == 18 then
+                                        if GetVehicleClass(GetVehiclePedIsUsing(GetPlayerPed(-1))) == 18 then
                         if (elsVehs[GetVehiclePedIsUsing(GetPlayerPed(-1))] ~= nil) then
                             if elsVehs[GetVehiclePedIsUsing(GetPlayerPed(-1))].stage == 3 then
                                 if IsDisabledControlJustReleased(0, keyboard.siren.tone_one) then
@@ -165,6 +168,42 @@ Citizen.CreateThread(function()
                                 if IsDisabledControlJustReleased(0, keyboard.siren.tone_three) then
                                     setSirenStateButton(3)
                                 end
+
+
+                                if IsDisabledControlJustReleased(0, keyboard.siren.dual_toggle) then
+                                    if playButtonPressSounds then
+                                        PlaySoundFrontend(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+                                    end
+                                    if dualEnable[GetVehiclePedIsUsing(GetPlayerPed(-1))] then
+                                        TriggerServerEvent("els:setDualSiren_s", false)
+                                        TriggerServerEvent("els:setDualSirenState_s", 0)
+                                    else
+                                        TriggerServerEvent("els:setDualSiren_s", true)
+                                    end
+                                end
+                                if dualEnable[GetVehiclePedIsUsing(GetPlayerPed(-1))] then
+                                    if IsDisabledControlJustReleased(0, keyboard.siren.dual_one) then
+                                        if playButtonPressSounds then
+                                            PlaySoundFrontend(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+                                        end
+                                        TriggerServerEvent("els:setDualSirenState_s", 1)
+                                    end
+
+                                    if IsDisabledControlJustReleased(0, keyboard.siren.dual_two) then
+                                        if playButtonPressSounds then
+                                            PlaySoundFrontend(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+                                        end
+                                        TriggerServerEvent("els:setDualSirenState_s", 2)
+                                    end
+
+                                    if IsDisabledControlJustReleased(0, keyboard.siren.dual_three) then
+                                        if playButtonPressSounds then
+                                            PlaySoundFrontend(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+                                        end
+                                        TriggerServerEvent("els:setDualSirenState_s", 3)
+                                    end
+                                end
+
                             end
                             if elsVehs[GetVehiclePedIsUsing(GetPlayerPed(-1))].stage == 2 then
                                 if IsDisabledControlJustReleased(0, keyboard.siren.tone_one) then
@@ -208,6 +247,7 @@ Citizen.CreateThread(function()
                             end
                         end
                     end
+
 
                 else
                     DisableControlAction(0, controller.modifyKey, true)
