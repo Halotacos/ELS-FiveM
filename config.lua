@@ -26,6 +26,10 @@ keyboard = {
 		tone_one = 157, -- 1
 		tone_two = 158, -- 2
 		tone_three = 160, -- 3
+		dual_toggle = 79, -- 4
+		dual_one = 164, -- 5
+		dual_two = 165, -- 6
+		dual_three = 159, -- ?
 	},
 	pattern = {
 		primary = 163, -- 9
